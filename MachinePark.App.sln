@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachinePark.App", "MachinePark.App\MachinePark.App.csproj", "{4AA16B63-9BF3-4BFE-8B89-5117381ECA39}"
+	ProjectSection(ProjectDependencies) = postProject
+		{58D03610-FD19-4BAB-9838-748006531A00} = {58D03610-FD19-4BAB-9838-748006531A00}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachinePark.Shared", "MachinePark.Shared\MachinePark.Shared.csproj", "{58D03610-FD19-4BAB-9838-748006531A00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachinePark.Api", "MachinePark.Api\MachinePark.Api.csproj", "{BAA112E4-7E46-4411-BDBE-1C1CF8F11B1E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{58D03610-FD19-4BAB-9838-748006531A00} = {58D03610-FD19-4BAB-9838-748006531A00}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AA16B63-9BF3-4BFE-8B89-5117381ECA39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AA16B63-9BF3-4BFE-8B89-5117381ECA39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AA16B63-9BF3-4BFE-8B89-5117381ECA39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AA16B63-9BF3-4BFE-8B89-5117381ECA39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58D03610-FD19-4BAB-9838-748006531A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58D03610-FD19-4BAB-9838-748006531A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58D03610-FD19-4BAB-9838-748006531A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58D03610-FD19-4BAB-9838-748006531A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAA112E4-7E46-4411-BDBE-1C1CF8F11B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAA112E4-7E46-4411-BDBE-1C1CF8F11B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAA112E4-7E46-4411-BDBE-1C1CF8F11B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAA112E4-7E46-4411-BDBE-1C1CF8F11B1E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
