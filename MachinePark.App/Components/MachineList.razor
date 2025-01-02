@@ -2,13 +2,13 @@
 @inject HttpClient Http
 
 <h3>MachineList</h3>
-<EditForm Model="@model">
+<EditForm Model="@newMachine">
     <DataAnnotationsValidator />
 
     <div>
         <label for="location">Location</label>
-        <InputText id="location" @bind-Value="model.Location" />
-        <ValidationMessage For="@(() => model.Location)" />
+        <InputText id="location" @bind-Value="newMachine.Location" />
+        <ValidationMessage For="@(() => newMachine.Location)" />
     </div>
 
     <button @onclick="() => AddMachine()">Add Machine</button>
@@ -52,31 +52,35 @@
 </table>
 
 @code {
-    private Machine model = new Machine();
-    private List<Machine> machines => GlobalMachineList.machines;
+    private MachineDto newMachine = new MachineDto();
+    private List<MachineDto> machines => GlobalMachineList.machines;
 
-    private void AddMachine(){
+    private async Task AddMachine(){
         Guid guid = Guid.NewGuid();
         string guidString = guid.ToString("N");
         string formattedGuid = $"{guidString.Substring(0, 4)}-{guidString.Substring(4, 4)}-{guidString.Substring(8, 4)}";
 
-        model.Id = 0;
-        model.Name = formattedGuid;
-        model.Edited = DateTime.Now;
-        model.Status = false;
-        GlobalMachineList.Add(model);
-        model = new Machine();
+        newMachine.Name = formattedGuid;
+        newMachine.Edited = DateTime.Now;
+        newMachine.Status = false;
+
+        var response = await Http.PostAsJsonAsync("api/Machines", newMachine);
+        if (response.IsSuccessStatusCode)
+        {
+            GlobalMachineList.Add(newMachine);
+            newMachine = new MachineDto();
+        }
     }
 
-    private void RemoveMachine(Machine machine){
+    private void RemoveMachine(MachineDto machine){
         GlobalMachineList.machines.Remove(machine);
     }
 
-    private void UpdateEdit(Machine machine){
+    private void UpdateEdit(MachineDto machine){
         machine.Edited = DateTime.Now;
     }
 
-    private void StatusToggle(Machine machine){
+    private void StatusToggle(MachineDto machine){
         machine.Status = !machine.Status;
     }
 
@@ -84,27 +88,16 @@
     {
         if (GlobalMachineList.machines.Count < 1)
         {
-            List<Machine> machines = await Http.GetFromJsonAsync<List<Machine>>("api/Machines");
-            foreach (Machine machine in machines){
+            List<MachineDto> machines = await Http.GetFromJsonAsync<List<MachineDto>>("api/Machines");
+            foreach (MachineDto machine in machines){
                 GlobalMachineList.Add(machine);
             }
         }
-        //FetchData();
         GlobalMachineList.OnChange += StateHasChanged;
     }
 
     public void Dispose()
     {
         GlobalMachineList.OnChange -= StateHasChanged;
-    }
-
-    public void FetchData()
-    {
-        if (GlobalMachineList.machines.Count < 1)
-        {
-            GlobalMachineList.Add(new Machine { Id = 1, Name = "ab12-cd34-ef56", Location = "Stockholm", Edited = DateTime.Today, Status = true });
-            GlobalMachineList.Add(new Machine { Id = 2, Name = "gh78-ij90-kl12", Location = "Uppsala", Edited = DateTime.Now, Status = false });
-            GlobalMachineList.Add(new Machine { Id = 3, Name = "mn34-op56-qr78", Location = "Stockholm", Edited = DateTime.UtcNow, Status = true });
-        }
     }
 }

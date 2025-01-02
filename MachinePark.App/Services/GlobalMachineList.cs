@@ -1,14 +1,14 @@
-﻿using MachinePark.Shared.Models;
+﻿using MachinePark.Shared.Dtos;
 
 namespace MachinePark.App.Services
 {
     public class GlobalMachineList
     {
-        public List<Machine> machines = new();
+        public List<MachineDto> machines = new();
 
         public event Action? OnChange;
 
-        public void Add(Machine machine)
+        public void Add(MachineDto machine)
         {
             machines.Add(machine);
             NotifyStateChanged();

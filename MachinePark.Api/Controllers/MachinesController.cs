@@ -85,12 +85,20 @@ namespace MachinePark.Api.Controllers
         // POST: api/Machines
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Machine>> PostMachine(Machine machine)
+        public async Task<ActionResult<MachineDto>> PostMachine(MachineDto machineDto)
         {
+            var machine = new Machine
+            {
+                Name = machineDto.Name,
+                Location = machineDto.Location,
+                Edited = machineDto.Edited,
+                Status = machineDto.Status
+            };
+
             _context.Machine.Add(machine);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMachine", new { id = machine.Id }, machine);
+            return CreatedAtAction(nameof(GetMachine), new { id = machine.Id }, machineDto);
         }
 
         // DELETE: api/Machines/5
